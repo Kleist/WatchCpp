@@ -7,10 +7,11 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 include_directories(src)
-set(SOURCE_FILES test/integration/main.cpp)
 
-add_executable(watch ${SOURCE_FILES} src/Watcher.cpp src/Watcher.h)
-
-enable_testing()
-add_test(integrationtest watch)
+add_library(watch src/Watcher.cpp src/Watcher.h)
 target_link_libraries(watch pthread)
+
+add_executable(test_watch_file test/integration/test_watch_file.cpp)
+target_link_libraries(test_watch_file watch)
+enable_testing()
+add_test(test_watch_file test_watch_file)
