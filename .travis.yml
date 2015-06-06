@@ -9,5 +9,4 @@ before_script:
   - cmake ..
 
 script:
-  - make
-  - make test_watch_file test
+  - make test
