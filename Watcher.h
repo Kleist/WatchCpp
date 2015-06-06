@@ -15,7 +15,7 @@ public:
 
     void join();
 private:
-    void run_(const std::string &filename, std::function<void()> onChange, std::function<void()> onWatching);
+    void run_(const std::string &filename, std::function<void()> onChange, std::promise<void>& watching);
 };
 
 
