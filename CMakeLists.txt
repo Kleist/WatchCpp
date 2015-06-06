@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(WatchCpp)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -stdlib=libstdc++")
 
 include_directories(src)
 
