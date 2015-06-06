@@ -1,10 +1,10 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(WatchCpp)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     message("Using Clang with libstdc++")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libstdc++")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libstdc++")
+else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x")
 endif()
 
 include_directories(src)
