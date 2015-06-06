@@ -1,6 +1,5 @@
 #include <fstream>
 #include <cassert>
-#include <atomic>
 #include <iostream>
 
 #include "Watcher.h"
@@ -25,4 +24,5 @@ int main() {
     watcher.join();
     std::cout << "Joined" << std::endl;
     assert(fileTouched);
-};
+    return 0;
+}
