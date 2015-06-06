@@ -1,11 +1,19 @@
 #include "Watcher.h"
 
-#include <limits.h>
+// Linux
+#include <linux/limits.h>
 #include <sys/inotify.h>
 #include <unistd.h>
-#include <iostream>
 
-Watcher::Watcher(const std::string& filename, std::function<void()> onChange)  {
+namespace {
+    typedef decltype(free)* FreeFunction;
+    template <typename T>
+    std::unique_ptr<T, FreeFunction> autoFreeMalloc(size_t bufsiz) {
+        return std::unique_ptr<T, FreeFunction>(reinterpret_cast<T*>(malloc(bufsiz)), &free);
+    }
+}
+
+Watcher::Watcher(const std::string& filename, std::function<void()> onChange) {
     std::promise<void> threadStarted;
     std::thread thread([this, filename, onChange, &threadStarted]() {
         run_(filename, onChange, threadStarted);
@@ -19,9 +27,7 @@ void Watcher::run_(const std::string& filename, std::function<void()> onChange, 
     int inotfd = inotify_init();
     /*int watch_desc = */ inotify_add_watch(inotfd, filename.c_str(), IN_MODIFY);
     size_t bufsiz = sizeof(struct inotify_event) + PATH_MAX + 1;
-    typedef decltype(free)* FreeFunction;
-    auto event = std::unique_ptr<struct inotify_event, FreeFunction>(reinterpret_cast<struct inotify_event*>(malloc(bufsiz)), &free);
-
+    auto event = autoFreeMalloc<struct inotify_event>(bufsiz);
     watching.set_value();
     read(inotfd, event.get(), bufsiz);
     onChange();
