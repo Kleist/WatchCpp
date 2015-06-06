@@ -4,7 +4,6 @@ compiler:
   - clang
 install:
   - sudo apt-get update
-  - apt-cache info libc++-dev
   - sudo apt-get install -y libc++-dev
 
 before_script:
