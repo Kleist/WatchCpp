@@ -6,6 +6,7 @@
 
 #include <sys/inotify.h>
 #include <unistd.h>
+#include <limits.h>
 #include <iostream>
 
 Watcher::Watcher(const std::string& filename, std::function<void()> onChange)
