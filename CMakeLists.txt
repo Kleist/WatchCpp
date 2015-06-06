@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.7)
 project(watch)
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
 
 set(SOURCE_FILES main.cpp)
 add_executable(watch ${SOURCE_FILES} Watcher.cpp Watcher.h)
